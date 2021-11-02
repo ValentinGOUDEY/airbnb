@@ -2,8 +2,6 @@ streamlit
 numpy
 Image
 pandas
-matplotlib.pyplot
-plotly.express
 altair
 seaborn
 base64
