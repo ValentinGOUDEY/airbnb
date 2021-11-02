@@ -5,5 +5,4 @@ pandas
 altair
 seaborn
 datetime
-rcParams
-PercentFormatter
+
