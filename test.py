@@ -53,7 +53,7 @@ with dataset:
 	#min_nights_values = st.sidebar.slider('minimum_nights', 0, 30, (1))
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
 
-
+	select_appart = st.sidebar.selectbox('id')
 
 	st.sidebar.markdown('-----------------------------------------------------')
 
