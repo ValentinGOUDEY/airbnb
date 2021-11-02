@@ -25,10 +25,10 @@ def get_profile_pic():
 
 
 with dataset:
-	df = st.cache(pd.read_csv)("data/airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_paris= st.cache(pd.read_csv)("data/df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_london= st.cache(pd.read_csv)("data/df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_superhost = st.cache(pd.read_csv)("data/df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df = st.cache(pd.read_csv)("airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_paris= st.cache(pd.read_csv)("df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_london= st.cache(pd.read_csv)("df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_superhost = st.cache(pd.read_csv)("df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	##st.write(df_superhost.head())
 
 
