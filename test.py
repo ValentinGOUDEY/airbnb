@@ -37,7 +37,7 @@ with dataset:
 
 	#st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
 	
-	st.sidebar.image("logo-Airbnb.png", use_column_width=True, with=250) 
+	#st.sidebar.image("logo-Airbnb.png", use_column_width=False, with=250) 
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
