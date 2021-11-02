@@ -18,9 +18,9 @@ model_training = st.container()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-@st.cache
-def get_profile_pic():
-	return Image.open('logo-airbnb.png')
+#@st.cache
+#def get_profile_pic():
+	#return Image.open('logo-airbnb.png')
 
 
 
@@ -35,7 +35,7 @@ with dataset:
 
 	################################ SIDEBAR ################################
 
-	st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
+	#st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
