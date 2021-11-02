@@ -8,8 +8,7 @@ import altair as alt
 import seaborn as sns
 
 import datetime
-#from matplotlib import rcParams
-#from  matplotlib.ticker import PercentFormatter
+
 
 header = st.container()
 dataset = st.container()
@@ -18,9 +17,7 @@ model_training = st.container()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-#@st.cache
-#def get_profile_pic():
-	#return Image.open('logo-airbnb.png')
+
 
 
 
@@ -36,9 +33,7 @@ with dataset:
 	################################ SIDEBAR ################################
 	image = Image.open('logo-Airbnb.png')
 	st.sidebar.image(image)
-	#st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
-	
-	#st.sidebar.image(image, use_column_width=False, with=250) 
+
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
