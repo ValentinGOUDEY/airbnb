@@ -56,26 +56,16 @@ with dataset:
 	#min_nights_values = st.sidebar.slider('minimum_nights', 0, 30, (1))
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
 
-	
 
-	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
-	#st.map(df_paris.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_london.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_paris.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
 
 	st.sidebar.markdown('-----------------------------------------------------')
 
-	#st.sidebar.markdown("**Author**: Valentin Goudey")
+	st.sidebar.markdown("**Author**: Valentin Goudey")
 
 
-	#st.sidebar.markdown("**Version:** 1.0.0")
+	st.sidebar.markdown("**Version:** 1.0.0")
 
 
-	#values = st.slider("Tranche de prix (€)", float(df.price.min()), float(df.price.clip(upper=100000.).max()), (500., 1500.))
-	#min_nights_values = st.slider('Minimum de nuits', 0, 30, (1))
-	#reviews = st.slider('Minimum de commentaires', 0, 700, (0))
-	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
 
 	################################ SOMMAIRE ################################
 
