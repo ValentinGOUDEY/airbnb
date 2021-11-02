@@ -6,7 +6,6 @@ matplotlib.pyplot
 plotly.express
 altair
 seaborn
-sns.set_style("whitegrid")
 base64
 datetime
 rcParams
