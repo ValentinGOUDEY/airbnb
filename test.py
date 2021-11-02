@@ -1,0 +1,120 @@
+from PIL import Image
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import plotly.express as px
+import altair as alt
+import seaborn as sns
+sns.set_style("whitegrid")
+import base64
+import datetime
+from matplotlib import rcParams
+from  matplotlib.ticker import PercentFormatter
+
+header = st.beta_container()
+dataset = st.beta_container()
+features = st.beta_container()
+model_training = st.beta_container()
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+
+@st.cache
+def get_profile_pic():
+	return Image.open('logo-airbnb.png')
+
+
+
+with dataset:
+	df = st.cache(pd.read_csv)("data/airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_paris= st.cache(pd.read_csv)("data/df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_london= st.cache(pd.read_csv)("data/df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_superhost = st.cache(pd.read_csv)("data/df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	##st.write(df_superhost.head())
+
+
+
+	################################ SIDEBAR ################################
+
+	st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
+	st.sidebar.header("Bienvenue!")
+
+	st.sidebar.markdown(" ")
+	st.sidebar.markdown("*Nous sommes 4 étudiants en Datasciences chez Datascientest et nous travaillons sur ce projet Airbnb afin de valider notre diplome de Data Analyst.*")
+
+	st.sidebar.markdown('-----------------------------------------------------')
+
+	check = st.sidebar.checkbox("Paris")
+	st.sidebar.write('Carte Superhost Paris active:', check)
+
+	
+	check_2 = st.sidebar.checkbox("Londres")
+	st.sidebar.write("Carte Superhost Londres active:", check_2)
+	
+
+	#values = st.sidebar.slider("Tranche de prix (€)", float(df_paris.price.min()), float(df_paris.price.clip(upper=10000000.).max()), (8., 999.))
+	#min_nights_values = st.sidebar.slider('minimum_nights', 0, 30, (1))
+	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
+
+	
+
+	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
+	#st.map(df_paris.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
+	#st.map(df_london.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
+	#st.map(df_paris.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
+	#st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
+
+	st.sidebar.markdown('-----------------------------------------------------')
+
+	#st.sidebar.markdown("**Author**: Valentin Goudey")
+
+
+	#st.sidebar.markdown("**Version:** 1.0.0")
+
+
+	#values = st.slider("Tranche de prix (€)", float(df.price.min()), float(df.price.clip(upper=100000.).max()), (500., 1500.))
+	#min_nights_values = st.slider('Minimum de nuits', 0, 30, (1))
+	#reviews = st.slider('Minimum de commentaires', 0, 700, (0))
+	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
+
+	################################ SOMMAIRE ################################
+
+	st.title("Projet Airbnb Datascientest")
+
+	st.markdown('-----------------------------------------------------')
+
+	st.markdown("**Dataset d’origine:** *Dataset airbnb rassemblant des données de logements dans de grandes villes tout autour du monde via le site opendatasoft nettoyé pour garder uniquement les villes de Paris et Londres*")
+
+
+	#################### centre d'interet ######################
+
+	st.header("Qu’est-ce que tu cherches ?")
+	st.write(f"Dans les colonnes, vous pourriez vouloir afficher uniquement un sous-ensemble.")
+	st.markdown("_**Note:** Il est possible de filtrer nos données de manière plus conventionnelle en utilisant les caractéristiques suivantes : **Prix**, **Minimum de nuits**, **Type de chambre**, **Quartiers**, **Description de l'hote**, **Nombre de Commentaires**")
+	defaultcols = ["price", "minimum_nights", "room_type", "neighbourhood_cleansed", "description", "number_of_reviews"]
+	cols = st.multiselect('', df.columns.tolist(), default=defaultcols)
+	st.dataframe(df[cols].head(10))
+
+	################### Pourcentage de distribution par Ville #####################
+
+	st.header("Disponibilitée et distribution par Ville")
+	st.markdown("La variable **availability_365** indique le nombre de jours dans l'année (365) où le bien est disponible.")
+
+	city_select = st.radio("Ville", df_superhost.city.unique())
+	
+	@st.cache
+	def get_availability(show_exp):
+		return df_superhost.query(f"""city==@city_select\
+			and availability_365>0""").availability_365.describe(\
+				percentiles=[.1, .25, .5, .75, .9, .99]).to_frame().T
+
+	st.table(get_availability(city_select))
+
+
+	################### Cartes intéractive Superhost #####################
+
+	if check:
+		st.map(df_paris.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"))
+
+	if check_2:
+		st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"))
