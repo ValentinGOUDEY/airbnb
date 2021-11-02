@@ -1,16 +1,15 @@
 from PIL import Image
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 import streamlit as st
-import plotly.express as px
+
 import altair as alt
 import seaborn as sns
-sns.set_style("whitegrid")
-import base64
+
 import datetime
-from matplotlib import rcParams
-from  matplotlib.ticker import PercentFormatter
+#from matplotlib import rcParams
+#from  matplotlib.ticker import PercentFormatter
 
 header = st.beta_container()
 dataset = st.beta_container()
