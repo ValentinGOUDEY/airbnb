@@ -40,6 +40,8 @@ with dataset:
 	st.sidebar.markdown("*Nous sommes 4 étudiants en Datasciences chez Datascientest et nous travaillons sur ce projet Airbnb afin de valider notre diplome de Data Analyst.*")
 
 	st.sidebar.markdown('-----------------------------------------------------')
+	
+	st.sidebar.markdown('Sélectionnez une ville pour afficher la carte intéractive')
 
 	check = st.sidebar.checkbox("Paris")
 	st.sidebar.write('Carte Superhost Paris active:', check)
