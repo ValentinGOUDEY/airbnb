@@ -20,10 +20,16 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
 with dataset:
-	df = st.cache(pd.read_csv)("airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	airbnb = st.cache(pd.read_csv)("airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	df_paris= st.cache(pd.read_csv)("df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	df_london= st.cache(pd.read_csv)("df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	df_superhost = st.cache(pd.read_csv)("df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	tab = pd.DataFrame([[3120,351,3,1],[100,2478,728,99],[0,854,1820,751],[0,151,795,2524]])
+	tab2 = pd.DataFrame([[0.832,0.023],[0.071,0.073]])
+	df=pd.read_csv('df.csv')
+
+	y_pred = pd.read_csv('y_pred_knn.csv')
+	y_pred_superhost = pd.read_csv('y_pred_rf.csv')
 	##st.write(df_superhost.head())
 	
 	################################ configuration de page ################################
@@ -88,8 +94,8 @@ with dataset:
 	st.write(f"Dans les colonnes, vous pourriez vouloir afficher uniquement un sous-ensemble.")
 	st.markdown("_**Note:** Il est possible de filtrer nos données de manière plus conventionnelle en utilisant les caractéristiques suivantes : **Prix**, **Minimum de nuits**, **Type de chambre**, **Quartiers**, **Description de l'hote**, **Nombre de Commentaires**")
 	defaultcols = ["price", "minimum_nights", "room_type", "neighbourhood_cleansed", "description", "number_of_reviews"]
-	cols = st.multiselect('', df.columns.tolist(), default=defaultcols)
-	st.dataframe(df[cols].head(10))
+	cols = st.multiselect('', airbnb.columns.tolist(), default=defaultcols)
+	st.dataframe(airbnb[cols].head(10))
 
 	################### Pourcentage de distribution par Ville #####################
 
@@ -119,4 +125,30 @@ with dataset:
 	
 	st.markdown('-----------------------------------------------------')
 	
+	st.header("Modèles de prédiction")
 	
+	st.subheader("Les résultats obtenus pour notre modèle de classification pour le succès d'un bien :")
+	st.write(tab)
+	st.write("Ce qui nous donne une accuracy de 72%")
+
+	st.subheader("Les résultats obtenus pour notre modèle de classification pour le superhost :")
+	st.write(tab2)
+	st.write("Ce qui nous donne une accuracy de 90%")
+
+
+	select_appart = st.sidebar.selectbox('Quel bien ?',df["Id"])
+
+	st.markdown("### Exemple de notre modèle sur le bien sélectionné")
+	st.write("Vu d'ensemble du bien sélectionné")
+	data_ex = df[df["Id"]==select_appart]
+	st.write(data_ex)
+
+	st.write(f"Le succès du bien trouvé en vrai est {int(df['succes'].loc[df['Id']==select_appart])} et le succès du bien trouvé par l'algorithme est {int(y_pred['0'][df.index[df['Id']==select_appart]])}")
+
+	def ouinon(k):
+			if int(k)==0:
+				return("Non")
+			if int(k)==1:
+				return("Oui")
+		
+	st.write(f"L'hôte est un superhost en vrai : {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} et l'algorithme dit que cet hote est un superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
