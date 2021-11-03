@@ -56,7 +56,7 @@ with dataset:
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
 	
 	#-- Set property type
-	#select_property = st.sidebar.multiselect('room_type')
+	select_property = st.sidebar.multiselect('property_type')
 
 	#select_appart = st.sidebar.selectbox('id')
 
