@@ -1,48 +1,55 @@
 from PIL import Image
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 import streamlit as st
-import plotly.express as px
+
 import altair as alt
 import seaborn as sns
-sns.set_style("whitegrid")
-import base64
-import datetime
-from matplotlib import rcParams
-from  matplotlib.ticker import PercentFormatter
 
-header = st.beta_container()
-dataset = st.beta_container()
-features = st.beta_container()
-model_training = st.beta_container()
+import datetime
+
+
+header = st.container()
+dataset = st.container()
+features = st.container()
+model_training = st.container()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-
-@st.cache
-def get_profile_pic():
-	return Image.open('logo-airbnb.png')
 
 
 
 with dataset:
-	df = st.cache(pd.read_csv)("data/airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_paris= st.cache(pd.read_csv)("data/df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_london= st.cache(pd.read_csv)("data/df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
-	df_superhost = st.cache(pd.read_csv)("data/df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	airbnb = st.cache(pd.read_csv)("airbnb_cleaned.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_paris= st.cache(pd.read_csv)("df_paris.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_london= st.cache(pd.read_csv)("df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	df_superhost = st.cache(pd.read_csv)("df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
+	tab = pd.DataFrame([[3120,351,3,1],[100,2478,728,99],[0,854,1820,751],[0,151,795,2524]])
+	tab2 = pd.DataFrame([[0.832,0.023],[0.071,0.073]])
+	df=pd.read_csv('df.csv')
+
+	y_pred = pd.read_csv('y_pred_knn.csv')
+	y_pred_superhost = pd.read_csv('y_pred_rf.csv')
 	##st.write(df_superhost.head())
+	
+	################################ configuration de page ################################
+	#apptitle = "Projet AirBnb"
+	#st.set_page_config(page_title=apptitle, page_icon="🏠")
 
 
 
 	################################ SIDEBAR ################################
+	image = Image.open('logo-Airbnb.png')
+	st.sidebar.image(image)
 
-	st.sidebar.image(get_profile_pic(), use_column_width=False, width=250)
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
 	st.sidebar.markdown("*Nous sommes 4 étudiants en Datasciences chez Datascientest et nous travaillons sur ce projet Airbnb afin de valider notre diplome de Data Analyst.*")
 
 	st.sidebar.markdown('-----------------------------------------------------')
+	
+	st.sidebar.header('Sélectionnez une ville pour afficher la carte intéractive')
 
 	check = st.sidebar.checkbox("Paris")
 	st.sidebar.write('Carte Superhost Paris active:', check)
@@ -55,16 +62,15 @@ with dataset:
 	#values = st.sidebar.slider("Tranche de prix (€)", float(df_paris.price.min()), float(df_paris.price.clip(upper=10000000.).max()), (8., 999.))
 	#min_nights_values = st.sidebar.slider('minimum_nights', 0, 30, (1))
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
-
 	
+	#-- Set property type
+	#select_property = st.sidebar.multiselect('Quel type de logement ?',df_superhost.property_type.unique())     #applique aucun changement :/
 
-	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
-	#st.map(df_paris.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_london.query(f"review_scores_rating>= 96 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_paris.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
-	#st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews} and minimum_nights<={min_nights_values}")[["latitude", "longitude"]].dropna(how="any"))
+	#select_appart = st.sidebar.selectbox('id')
 
 	st.sidebar.markdown('-----------------------------------------------------')
+	
+	st.sidebar.header("Filtre model prédiction")
 
 	#st.sidebar.markdown("**Author**: Valentin Goudey")
 
@@ -72,10 +78,6 @@ with dataset:
 	#st.sidebar.markdown("**Version:** 1.0.0")
 
 
-	#values = st.slider("Tranche de prix (€)", float(df.price.min()), float(df.price.clip(upper=100000.).max()), (500., 1500.))
-	#min_nights_values = st.slider('Minimum de nuits', 0, 30, (1))
-	#reviews = st.slider('Minimum de commentaires', 0, 700, (0))
-	#st.map(df.query(f"price.between{values} and minimum_nights<={min_nights_values} and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"), zoom=10)
 
 	################################ SOMMAIRE ################################
 
@@ -92,8 +94,8 @@ with dataset:
 	st.write(f"Dans les colonnes, vous pourriez vouloir afficher uniquement un sous-ensemble.")
 	st.markdown("_**Note:** Il est possible de filtrer nos données de manière plus conventionnelle en utilisant les caractéristiques suivantes : **Prix**, **Minimum de nuits**, **Type de chambre**, **Quartiers**, **Description de l'hote**, **Nombre de Commentaires**")
 	defaultcols = ["price", "minimum_nights", "room_type", "neighbourhood_cleansed", "description", "number_of_reviews"]
-	cols = st.multiselect('', df.columns.tolist(), default=defaultcols)
-	st.dataframe(df[cols].head(10))
+	cols = st.multiselect('', airbnb.columns.tolist(), default=defaultcols)
+	st.dataframe(airbnb[cols].head(10))
 
 	################### Pourcentage de distribution par Ville #####################
 
@@ -118,3 +120,35 @@ with dataset:
 
 	if check_2:
 		st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"))
+
+	################### model de prédiction #####################
+	
+	st.markdown('-----------------------------------------------------')
+	
+	st.header("Modèles de prédiction")
+	
+	st.subheader("Les résultats obtenus pour notre modèle de classification pour le succès d'un bien :")
+	st.write(tab)
+	st.write("Ce qui nous donne une accuracy de 72%")
+
+	st.subheader("Les résultats obtenus pour notre modèle de classification pour le superhost :")
+	st.write(tab2)
+	st.write("Ce qui nous donne une accuracy de 90%")
+
+
+	select_appart = st.sidebar.selectbox('Quel bien ?',df["Id"])
+
+	st.markdown("### Exemple de notre modèle sur le bien sélectionné")
+	st.write("Vu d'ensemble du bien sélectionné")
+	data_ex = df[df["Id"]==select_appart]
+	st.write(data_ex)
+
+	st.write(f"Le succès du bien trouvé en vrai est {int(df['succes'].loc[df['Id']==select_appart])} et le succès du bien trouvé par l'algorithme est {int(y_pred['0'][df.index[df['Id']==select_appart]])}")
+
+	def ouinon(k):
+			if int(k)==0:
+				return("Non")
+			if int(k)==1:
+				return("Oui")
+		
+	st.write(f"L'hôte est un superhost en vrai : {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} et l'algorithme dit que cet hote est un superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")

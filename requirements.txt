@@ -1,0 +1,8 @@
+streamlit
+numpy
+Image
+pandas
+altair
+seaborn
+datetime
+
