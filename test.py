@@ -43,7 +43,7 @@ with dataset:
 
 	st.sidebar.markdown('-----------------------------------------------------')
 	
-	st.sidebar.markdown('Sélectionnez une ville pour afficher la carte intéractive')
+	st.sidebar.header('Sélectionnez une ville pour afficher la carte intéractive')
 
 	check = st.sidebar.checkbox("Paris")
 	st.sidebar.write('Carte Superhost Paris active:', check)
@@ -63,6 +63,8 @@ with dataset:
 	#select_appart = st.sidebar.selectbox('id')
 
 	st.sidebar.markdown('-----------------------------------------------------')
+	
+	st.sidebar.header("Filtre model prédiction")
 
 	#st.sidebar.markdown("**Author**: Valentin Goudey")
 
@@ -114,6 +116,7 @@ with dataset:
 		st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"))
 
 	################### model de prédiction #####################
+	
 	st.markdown('-----------------------------------------------------')
 	
 	
