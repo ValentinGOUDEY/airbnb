@@ -142,13 +142,17 @@ with dataset:
 	st.write("Vu d'ensemble du bien sélectionné")
 	data_ex = df[df["Id"]==select_appart]
 	st.write(data_ex)
+	
+	st.markdown('-----------------------------------------------------')
 
-	st.write(f"Le succès de ce bien est classé: {int(df['succes'].loc[df['Id']==select_appart])} ------> Le succès du bien trouvé par l'algorithme est: {int(y_pred['0'][df.index[df['Id']==select_appart]])}")
+	st.write(f"### Le succès de ce bien est classé: {int(df['succes'].loc[df['Id']==select_appart])} ------> Le succès du bien trouvé par l'algorithme est: {int(y_pred['0'][df.index[df['Id']==select_appart]])}")
 
 	def ouinon(k):
 			if int(k)==0:
 				return("Non")
 			if int(k)==1:
 				return("Oui")
+			
+	st.markdown('-----------------------------------------------------')
 		
-	st.write(f"L'hôte est-il un superhost?: {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} ------> Notre algorithme prédit-il notre hote comme Superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
+	st.write(f"### L'hôte est-il un superhost?: {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} ------> Notre algorithme prédit-il notre hote comme Superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
