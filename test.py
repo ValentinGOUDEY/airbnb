@@ -16,6 +16,9 @@ features = st.container()
 model_training = st.container()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
+################################ configuration de page ################################
+apptitle = "Projet AirBnb Datascientest"
+st.set_page_config(page_title=apptitle, page_icon="🏠")
 
 
 
