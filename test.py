@@ -143,7 +143,7 @@ with dataset:
 	data_ex = df[df["Id"]==select_appart]
 	st.write(data_ex)
 
-	st.write(f"Le succès du bien trouvé en vrai est {int(df['succes'].loc[df['Id']==select_appart])} et le succès du bien trouvé par l'algorithme est {int(y_pred['0'][df.index[df['Id']==select_appart]])}")
+	st.write(f"Le succès de ce bien est classé: {int(df['succes'].loc[df['Id']==select_appart])}\n Le succès du bien trouvé par l'algorithme est:{int(y_pred['0'][df.index[df['Id']==select_appart]])}")
 
 	def ouinon(k):
 			if int(k)==0:
@@ -151,4 +151,4 @@ with dataset:
 			if int(k)==1:
 				return("Oui")
 		
-	st.write(f"L'hôte est un superhost en vrai : {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} et l'algorithme dit que cet hote est un superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
+	st.write(f"L'hôte est-il un superhost?: {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} \n Notre algorithme prédit-il notre hote comme Superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
