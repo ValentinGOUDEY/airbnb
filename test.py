@@ -54,6 +54,9 @@ with dataset:
 	#values = st.sidebar.slider("Tranche de prix (€)", float(df_paris.price.min()), float(df_paris.price.clip(upper=10000000.).max()), (8., 999.))
 	#min_nights_values = st.sidebar.slider('minimum_nights', 0, 30, (1))
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
+	
+	#-- Set property type
+	select_property = st.sidebar.multiselect('Quel type de logement ?',['Apartment','House'],default = ['Apartment','House'])
 
 	#select_appart = st.sidebar.selectbox('id')
 
