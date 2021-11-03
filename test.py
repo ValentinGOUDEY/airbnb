@@ -27,8 +27,8 @@ with dataset:
 	##st.write(df_superhost.head())
 	
 	################################ configuration de page ################################
-	apptitle = "Projet AirBnb Datascientest"
-	st.set_page_config(page_title=apptitle, page_icon="🏠")
+	#apptitle = "Projet AirBnb"
+	#st.set_page_config(page_title=apptitle, page_icon="🏠")
 
 
 
@@ -112,3 +112,8 @@ with dataset:
 
 	if check_2:
 		st.map(df_london.query(f"review_scores_rating>=96 and number_of_reviews>=8 and host_response_rate>=90 and number_of_reviews>={reviews}")[["latitude", "longitude"]].dropna(how="any"))
+
+	################### model de prédiction #####################
+	st.markdown('-----------------------------------------------------')
+	
+	
