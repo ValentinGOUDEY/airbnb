@@ -56,7 +56,7 @@ with dataset:
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
 	
 	#-- Set property type
-	select_property = st.sidebar.multiselect('Quel type de logement ?',['Apartment','House'],default = ['Apartment','House'])
+	select_property = st.sidebar.multiselect('Quel type de logement ?',df_superhost.property_type.unique(),default = ['Apartment','House'])
 
 	#select_appart = st.sidebar.selectbox('id')
 
