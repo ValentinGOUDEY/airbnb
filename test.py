@@ -56,16 +56,16 @@ with dataset:
 	reviews = st.sidebar.slider('Number_of_reviews', 8, 364, (8))
 	
 	#-- Set property type
-	select_property = st.sidebar.multiselect('Quel type de logement ?',df_superhost.property_type.unique())
+	#select_property = st.sidebar.multiselect('Quel type de logement ?',df_superhost.property_type.unique())     #applique aucun changement :/
 
 	#select_appart = st.sidebar.selectbox('id')
 
 	st.sidebar.markdown('-----------------------------------------------------')
 
-	st.sidebar.markdown("**Author**: Valentin Goudey")
+	#st.sidebar.markdown("**Author**: Valentin Goudey")
 
 
-	st.sidebar.markdown("**Version:** 1.0.0")
+	#st.sidebar.markdown("**Version:** 1.0.0")
 
 
 
