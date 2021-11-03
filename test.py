@@ -16,11 +16,6 @@ features = st.container()
 model_training = st.container()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-################################ configuration de page ################################
-apptitle = "Projet AirBnb Datascientest"
-st.set_page_config(page_title=apptitle, page_icon="🏠")
-
-
 
 
 
@@ -30,6 +25,10 @@ with dataset:
 	df_london= st.cache(pd.read_csv)("df_london.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	df_superhost = st.cache(pd.read_csv)("df_superhost.csv", engine="python", sep=';', quotechar='"', error_bad_lines=False)
 	##st.write(df_superhost.head())
+	
+	################################ configuration de page ################################
+	apptitle = "Projet AirBnb Datascientest"
+	st.set_page_config(page_title=apptitle, page_icon="🏠")
 
 
 
