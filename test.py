@@ -95,7 +95,7 @@ with dataset:
 	st.markdown("_**Note:** Il est possible de filtrer nos données de manière plus conventionnelle en utilisant les caractéristiques suivantes : **Prix**, **Minimum de nuits**, **Type de chambre**, **Quartiers**, **Description de l'hote**, **Nombre de Commentaires**")
 	defaultcols = ["price", "minimum_nights", "room_type", "neighbourhood_cleansed", "description", "number_of_reviews"]
 	cols = st.multiselect('', airbnb.columns.tolist(), default=defaultcols)
-	st.dataframe(airbnb[cols].head(10))
+	st.dataframe(airbnb[cols].head(20))
 
 	################### Pourcentage de distribution par Ville #####################
 
