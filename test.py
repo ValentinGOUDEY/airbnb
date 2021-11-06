@@ -154,6 +154,8 @@ with dataset:
 
 	st.markdown('-----------------------------------------------------')
 	
+	st.sidebar.markdown('-----------------------------------------------------')
+	
 	st.sidebar.markdown("**Author**: Valentin Goudey")
 
 
