@@ -72,11 +72,6 @@ with dataset:
 	
 	st.sidebar.header("Filtre model prédiction")
 
-	st.sidebar.markdown("**Author**: Valentin Goudey")
-
-
-	st.sidebar.markdown("**Version:** 1.0.0")
-
 
 
 	################################ SOMMAIRE ################################
@@ -158,3 +153,8 @@ with dataset:
 	st.write(f"##### L'hôte est-il un superhost?: {ouinon(int(df['superhost'].loc[df['Id']==select_appart]))} ------> Notre algorithme prédit-il notre hote comme Superhost : {ouinon(int(y_pred_superhost['0'][df.index[df['Id']==select_appart]]))}")
 
 	st.markdown('-----------------------------------------------------')
+	
+	st.sidebar.markdown("**Author**: Valentin Goudey")
+
+
+	st.sidebar.markdown("**Version:** 1.0.0")
