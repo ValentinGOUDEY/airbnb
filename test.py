@@ -81,7 +81,7 @@ with dataset:
 
 	################################ SOMMAIRE ################################
 
-	st.title("Projet Airbnb Datascientest")
+	st.title("Projet Airbnb")
 
 	st.markdown('-----------------------------------------------------')
 
