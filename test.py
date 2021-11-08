@@ -45,7 +45,7 @@ with dataset:
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
-	#st.sidebar.markdown("*Nous sommes 4 étudiants en Datasciences chez Datascientest et nous travaillons sur ce projet Airbnb afin de valider notre diplome de Data Analyst.*")
+	st.sidebar.markdown("*Nous sommes 4 étudiants en Datasciences chez Datascientest et nous travaillons sur ce projet Airbnb afin de valider notre diplome de Data Analyst.*")
 
 	st.sidebar.markdown('-----------------------------------------------------')
 	
@@ -156,7 +156,7 @@ with dataset:
 	
 	st.sidebar.markdown('-----------------------------------------------------')
 	
-	st.sidebar.markdown("**Author**: Valentin Goudey")
+	#st.sidebar.markdown("**Author**: Valentin Goudey")
 
 
-	st.sidebar.markdown("**Version:** 1.0.0")
+	#st.sidebar.markdown("**Version:** 1.0.0")
