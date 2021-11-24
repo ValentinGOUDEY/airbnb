@@ -45,7 +45,7 @@ with dataset:
 	st.sidebar.header("Bienvenue!")
 
 	st.sidebar.markdown(" ")
-	st.sidebar.markdown("*Nous suis étudiant en Datasciences chez Datascientest et je travaille sur ce projet Airbnb afin de valider mon diplome de Data Analyst.*")
+	st.sidebar.markdown("*Je suis étudiant en Datasciences chez Datascientest et je travaille sur ce projet Airbnb afin de valider mon diplome de Data Analyst.*")
 
 	st.sidebar.markdown('-----------------------------------------------------')
 	
