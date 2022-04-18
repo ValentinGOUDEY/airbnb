@@ -23,3 +23,4 @@ Variable “Succès”
 
 Une présentation détails étape par étape le travail effectué dans ce projet.
 Une application Streamlit est aussi disponible
+![image](https://user-images.githubusercontent.com/85689282/163830012-baed282b-1188-43b8-981a-2298b800092a.png)
